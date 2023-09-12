@@ -32,17 +32,9 @@
                 <input type="hidden" name="command" value="insert">
 
                 <div class="posting"><textarea name="tweet" class="textbox">いまどうしてる？</textarea></div><br>
-                <div class="submit"><input class="tweetbuttun" type="submit" value="ツイート"><br></div>
+                <div class="submit"><input class="tweetbuttun" type="submit" value="ツイート"></div>
             </form>
         </div>
-        <div class="sortarea">
-                <form action="twitter.php" method="post">
-                <input type="hidden" name="sort">
-                <div class="sort"><input type="submit" value="並べ替え">
-            </form>
-            </div>
-        </div>
-        
 
 
         <div class="tweet_wrap">
@@ -52,53 +44,38 @@
             if (isset($_REQUEST['command'])) {
                 switch ($_REQUEST['command']) {
                     case 'insert':
-                        $sql = $pdo->prepare('insert into post values(null,?,?)');
+                        $sql = $pdo->prepare('insert into post values(null,?,null)');
                         $sql->execute(
-                            [$_REQUEST['tweet'],date('Y/m/d H:i:s')]
+                            [$_REQUEST['tweet']]
                         );
                         break;
+                            
+            }
+            }
+            if (isset($_POST['good'])) {
+                $sql = $pdo->prepare("select good from post where id = ?");
+                $sql->execute([$_REQUEST['id']]);
+                $result = $pdo->query($sql);
+            
+                if ($result->num_rows > 0) {
+                    $rowgood = $result->fetch_assoc();
+                    $currentCount = $rowgood['good'];
+            
+                    // 数値を1増やす
+                    $newCount = $currentCount + 1;
+                $sql = $pdo->prepare('update post set good = $newCount where id=?');
+                $sql->execute([$_REQUEST['id']]);
+                }
+    }
 
-            }
-            }
-            if (isset($_REQUEST['sort'])) {
-                foreach ($pdo->query('select * from post order by id desc') as $row) {
-                    echo '<div class="center_tweet">
-                    <div class="tweet_icon"><img src="images/icon1.jpg" alt=""></div>
-                    <div class="tweet_area">
-                        <div class="user_info">
-                            <div class="account_name">犬好き【公式】</div>
-                            <div class="account_id">@dog_love</div>
-                            <div class="post_time">';
-                            echo $row['time'];
-                            echo '</div>
-                        </div>
-                        <div class="tweet_text">';
-                    echo $row['tweet'];
-                    echo '</div>
-            <div class="tweet_image">
-            </div>
-            <div class="tweet_impression">
-                <div class="comments"><i class="fa-regular fa-comment impression_i"></i>---</div>
-                <div class="retweet"><i class="fa-solid fa-retweet impression_i"></i>---</div>
-                <div class="good"><i class="fa-regular fa-heart impression_i"></i>
-                    <div class="good_count"></div>
-                </div>
-                <div class="total_impression"><i class="fa-solid fa-signal impression_i"></i>---</div>
-            </div>
-            </div>
-            </div>
-            ';}
-            }else{
-                foreach ($pdo->query('select * from post') as $row) {
+            foreach ($pdo->query('select * from post') as $row) {
                 echo '<div class="center_tweet">
                 <div class="tweet_icon"><img src="images/icon1.jpg" alt=""></div>
                 <div class="tweet_area">
                     <div class="user_info">
                         <div class="account_name">犬好き【公式】</div>
                         <div class="account_id">@dog_love</div>
-                        <div class="post_time">';
-                        echo $row['time'];
-                        echo '</div>
+                        <div class="post_time">---</div>
                     </div>
                     <div class="tweet_text">';
                 echo $row['tweet'];
@@ -109,7 +86,13 @@
             <div class="comments"><i class="fa-regular fa-comment impression_i"></i>---</div>
             <div class="retweet"><i class="fa-solid fa-retweet impression_i"></i>---</div>
             <div class="good"><i class="fa-regular fa-heart impression_i"></i>
-                <div class="good_count"></div>
+            <form method="post">
+            <input type="hidden" name="id" value="', $row['id'],'">
+        <input type="submit" name="good" value="いいね">
+    </form>
+                <div class="good_count">';
+                echo $row['good'];
+                echo '</div>
             </div>
             <div class="total_impression"><i class="fa-solid fa-signal impression_i"></i>---</div>
         </div>
@@ -119,7 +102,7 @@
 
                 echo "\n";
             }
-            }
+
             ?>
         </div>
     </section>
