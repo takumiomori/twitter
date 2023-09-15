@@ -183,7 +183,27 @@ body{
     float: left;
     margin-left: 10px;
     margin-right: 10px;
+    display: flex;
 }
 .impression_i{
     margin-right: 5px;
 }
+
+.goodbuttun,.good_count{
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.goodbuttun{
+    float: right;
+    border:1px solid #eb3483;
+    background-color: white;
+    font-weight: bold;
+    color: #eb3483;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+

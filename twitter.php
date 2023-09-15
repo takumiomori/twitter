@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Twitter</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
     <script src="https://kit.fontawesome.com/ac579a8dbe.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -28,7 +28,7 @@
 
         </div>
         <div class="postarea">
-            <form action="twitter.php" method="post">
+            <form action="twitter2.php" method="post">
                 <input type="hidden" name="command" value="insert">
 
                 <div class="posting"><textarea name="tweet" class="textbox">いまどうしてる？</textarea></div><br>
@@ -52,42 +52,56 @@
             if (isset($_REQUEST['command'])) {
                 switch ($_REQUEST['command']) {
                     case 'insert':
-                        $sql = $pdo->prepare('insert into post values(null,?,?)');
+                        $sql = $pdo->prepare('insert into post values(null,?,?,0)');
                         $sql->execute(
                             [$_REQUEST['tweet'],date('Y/m/d H:i:s')]
                         );
                         break;
-
+                    case 'update':
+                        $sql = $pdo->prepare('update post set good=good + 1 where id=?');
+                        $sql->execute([$_REQUEST['id']]);
+                        break;
             }
-            }
+        }
             if (isset($_REQUEST['sort'])) {
                 foreach ($pdo->query('select * from post order by id desc') as $row) {
-                    echo '<div class="center_tweet">
-                    <div class="tweet_icon"><img src="images/icon1.jpg" alt=""></div>
-                    <div class="tweet_area">
-                        <div class="user_info">
-                            <div class="account_name">犬好き【公式】</div>
-                            <div class="account_id">@dog_love</div>
-                            <div class="post_time">';
-                            echo $row['time'];
-                            echo '</div>
-                        </div>
-                        <div class="tweet_text">';
-                    echo $row['tweet'];
-                    echo '</div>
-            <div class="tweet_image">
-            </div>
-            <div class="tweet_impression">
-                <div class="comments"><i class="fa-regular fa-comment impression_i"></i>---</div>
-                <div class="retweet"><i class="fa-solid fa-retweet impression_i"></i>---</div>
-                <div class="good"><i class="fa-regular fa-heart impression_i"></i>
-                    <div class="good_count"></div>
+                        echo '<div class="center_tweet">
+                        <div class="tweet_icon"><img src="images/icon1.jpg" alt=""></div>
+                        <div class="tweet_area">
+                            <div class="user_info">
+                                <div class="account_name">犬好き【公式】</div>
+                                <div class="account_id">@dog_love</div>
+                                <div class="post_time">';
+                                echo $row['time'];
+                                echo '</div>
+                            </div>
+                            <div class="tweet_text">';
+                        echo $row['tweet'];
+                        echo '</div>
+                <div class="tweet_image">
                 </div>
-                <div class="total_impression"><i class="fa-solid fa-signal impression_i"></i>---</div>
-            </div>
-            </div>
-            </div>
-            ';}
+                <div class="tweet_impression">
+                    <div class="comments"><i class="fa-regular fa-comment impression_i"></i>---</div>
+                    <div class="retweet"><i class="fa-solid fa-retweet impression_i"></i>---</div>
+
+                    <div class="good"><i class="fa-regular fa-heart impression_i"></i>
+                    
+                    <form action="twitter.php" method="post">
+                        <input type="hidden" name="command" value="update">
+                    <input type="hidden" name="id" value="', $row['id'],'">
+                <input class="goodbuttun" type="submit" name="good" value="いいね">
+            </form>
+                        <div class="good_count">';
+                        echo $row['good'];
+                        echo '</div>
+
+                    </div>
+                    <div class="total_impression"><i class="fa-solid fa-signal impression_i"></i>---</div>
+                </div>
+                </div>
+                </div>
+                ';
+                }
             }else{
                 foreach ($pdo->query('select * from post') as $row) {
                 echo '<div class="center_tweet">
@@ -108,8 +122,18 @@
         <div class="tweet_impression">
             <div class="comments"><i class="fa-regular fa-comment impression_i"></i>---</div>
             <div class="retweet"><i class="fa-solid fa-retweet impression_i"></i>---</div>
+
             <div class="good"><i class="fa-regular fa-heart impression_i"></i>
-                <div class="good_count"></div>
+            
+            <form action="twitter.php" method="post">
+                <input type="hidden" name="command" value="update">
+            <input type="hidden" name="id" value="', $row['id'],'">
+        <input class="goodbuttun" type="submit" name="good" value="いいね">
+    </form>
+                <div class="good_count">';
+                echo $row['good'];
+                echo '</div>
+
             </div>
             <div class="total_impression"><i class="fa-solid fa-signal impression_i"></i>---</div>
         </div>
