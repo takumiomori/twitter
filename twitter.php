@@ -23,6 +23,9 @@ echo '<!DOCTYPE html>
         <div class="setting"><i class="fa-solid fa-gear size_left" style="color: #0f1419;"></i>
             <p class="left_copy setting">設定</p>
         </div>
+        <div class="logout">
+            <p class="left_copy setting"><a href="twitter-logout-output.php">ログアウト</a></p>
+        </div>
     </section>
     <section class="center">
         <div class="center_head">
@@ -158,6 +161,9 @@ echo '<!DOCTYPE html>
                 }
             }else{
                 echo 'サービスの利用にはログインする必要があります。';
+                echo '<a href="twitter-login-input.php">ログイン</a></p>';
+                echo 'アカウントをお持ちでない方は';
+                echo '<a href="twitter-signin-input.php">アカウント登録</a></p>';
             }
             ?>
         </div>

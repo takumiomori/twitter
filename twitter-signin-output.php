@@ -19,6 +19,7 @@ if(empty($sql->fetchAll())){
         $sql=$pdo->prepare('insert into post_user values(null,?,?,?)');
         $sql->execute([$_REQUEST['accountid'],$_REQUEST['username'],$_REQUEST['password']]);
         echo 'アカウント情報を登録しました。';
+        echo '<a href="twitter-login-input.php">ログイン</a></p>';
     }
 }else{
     echo 'アカウントIDが既に使用されています。変更して再度登録してください。';
