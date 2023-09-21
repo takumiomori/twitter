@@ -7,7 +7,7 @@ $sql=$pdo->prepare('select * from post_user where accountid=? and password=?');
 $sql->execute([$_REQUEST['accountid'],$_REQUEST['password']]);
 foreach($sql as $row){
     $_SESSION['user']=[
-        'id'=>$row['id'],'accountid'=>$row['accountid'],'username'=>$row['username'],'password'=>$row['password'],'userimage'=>$row['userimage']
+        'id'=>$row['id'],'accountid'=>$row['accountid'],'username'=>$row['username'],'password'=>$row['password'],
     ];
 }
 if(isset($_SESSION['user'])){

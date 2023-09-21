@@ -1,6 +1,6 @@
 <?php session_start(); ?>
-<?php 
-$pdo=new PDO('mysql:host=localhost;dbname=practice;charset=utf8','root','mariadb');
+<?php
+$pdo=new PDO('mysql:host=localhost;dbname=practice;charset=utf8', 'root' , 'mariadb');
 if(isset($_SESSION['user'])){
     $id=$_SESSION['user']['id'];
     $sql=$pdo->prepare('select * from post_user where id!=? and accountid=?');

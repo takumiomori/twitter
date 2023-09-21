@@ -152,6 +152,7 @@ body{
 }
 .account_id{
     float: left;
+    margin-left: 15px;
     margin-right: 15px;
 }
 .post_time{
