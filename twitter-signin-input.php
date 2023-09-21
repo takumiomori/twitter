@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php session_start();
+if(empty($_SESSION['token'])){
+    //このセッション専用のトークンを作る
+   $token = bin2hex(openssl_random_pseudo_bytes(24));
+   //セッション変数としてトークンを格納
+   $_SESSION['token']=$token;
+}else{ //トークンがもともとあればそれを使う
+   $token = $_SESSION['token'];
+} ?>
 <?php 
 $accountid=$username=$password='';
 if(isset($_SESSION['user'])){
@@ -19,6 +27,7 @@ echo '<tr><td>パスワード</td><td>';
 echo '<input type="password" name="password" value="',$password,'">';
 echo '</td></tr>';
 echo '</table>';
+echo '<input type="hidden" name="token" value="',htmlspecialchars($token,ENT_COMPAT,'UTF-8'),'">';
 echo '<input type="submit" value="登録">';
 echo '</form>';
 ?>
