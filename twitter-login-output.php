@@ -13,6 +13,7 @@ foreach($sql as $row){
 if(isset($_SESSION['user'])){
     echo 'ようこそ、',$_SESSION['user']['username'],'さん。';
     echo '<a href="twitter.php">Twitterをはじめる</a></p>';
+  exit;
 }else{
     echo 'アカウントIDまたはパスワードが違います。';
 }

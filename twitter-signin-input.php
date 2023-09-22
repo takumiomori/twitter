@@ -14,20 +14,28 @@ if(isset($_SESSION['user'])){
     $username=$_SESSION['user']['username'];
     $password=$_SESSION['user']['password'];
 }
-
+echo '<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>';
+echo '<body>';
+echo '<div class="signin">';
+echo '<div class="inputarea">';
 echo '<form action="twitter-signin-output.php" method="post">';
 echo '<table>';
 echo '<tr><td>アカウントID</td><td>';
-echo '<input type="text" name="accountid" value="',$accountid,'">';
+echo '<input type="text" class="form" name="accountid" value="',$accountid,'">';
 echo '</td></tr>';
 echo '<tr><td>ユーザ名</td><td>';
-echo '<input type="text" name="username" value="',$username,'">';
+echo '<input type="text" class="form" name="username" value="',$username,'">';
 echo '</td></tr>';
 echo '<tr><td>パスワード</td><td>';
-echo '<input type="password" name="password" value="',$password,'">';
+echo '<input type="password" class="form" name="password" value="',$password,'">';
 echo '</td></tr>';
 echo '</table>';
 echo '<input type="hidden" name="token" value="',htmlspecialchars($token,ENT_COMPAT,'UTF-8'),'">';
-echo '<input type="submit" value="登録">';
+echo '<input type="submit" class="submitbtn" value="登録">';
 echo '</form>';
+echo '</div>';
+echo '</div>';
+echo '</body>';
 ?>
