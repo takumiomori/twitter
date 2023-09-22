@@ -23,9 +23,9 @@ echo '<!DOCTYPE html>
         <div class="setting"><i class="fa-solid fa-gear size_left" style="color: #0f1419;"></i>
             <p class="left_copy setting">設定</p>
         </div>
-        <div class="logout">
-            <p class="left_copy setting"><a href="twitter-logout-output.php">ログアウト</a></p>
-        </div>
+        
+            <a href="twitter-logout-output.php"><p class="left_copy logout">ログアウト</p></a>
+        
     </section>
     <section class="center">
         <div class="center_head">

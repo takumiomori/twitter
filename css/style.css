@@ -51,7 +51,7 @@ body{
 .search{
     font-weight: bold;
 }
-.search_topics:hover ,.setting:hover{
+.search_topics:hover ,.setting:hover,.logout:hover{
     background-color: gainsboro;
 }
 
