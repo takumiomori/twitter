@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 function ex($s){ //XSS対策用のHTMLエスケープと表示関数
     echo htmlspecialchars($s,ENT_COMPAT,'UTF-8');
 }
@@ -10,6 +12,11 @@ if(empty($_SESSION['token']) || $token !==$_SESSION['token']){
 }else{
     //正常時の処理の実行
     $pdo=new PDO('mysql:host=localhost;dbname=practice;charset=utf8', 'root' , 'mariadb');
+    if(is_uploaded_file($_FILES['file']['tmp_name'])){
+        $file='images/'.basename($_FILES['file']['name']);
+        move_uploaded_file($_FILES['file']['tmp_name'],$file);
+        $userimage=basename($_FILES['file']['name']);
+    }
 if(isset($_SESSION['user'])){
     $id=$_SESSION['user']['id'];
     $sql=$pdo->prepare('select * from post_user where id!=? and accountid=?');
@@ -25,8 +32,8 @@ if(empty($sql->fetchAll())){
         $_SESSION['user']=['id'=>$id,'accountid'=>$_REQUEST['accountid'],'username'=>$_REQUEST['username'],'password'=>$_REQUEST['password']];
         echo 'アカウント情報を更新しました。';
     }else{
-        $sql=$pdo->prepare('insert into post_user values(null,?,?,?)');
-        $sql->execute([$_REQUEST['accountid'],$_REQUEST['username'],$_REQUEST['password']]);
+        $sql=$pdo->prepare('insert into post_user values(null,?,?,?,?)');
+        $sql->execute([$_REQUEST['accountid'],$_REQUEST['username'],$_REQUEST['password'],$userimage]);
         echo 'アカウント情報を登録しました。';
         echo '<a href="twitter-login-input.php">ログイン</a></p>';
     }

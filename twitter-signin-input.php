@@ -8,11 +8,12 @@ if(empty($_SESSION['token'])){
    $token = $_SESSION['token'];
 } ?>
 <?php 
-$accountid=$username=$password='';
+$accountid=$username=$password=$userimage='';
 if(isset($_SESSION['user'])){
     $accountid=$_SESSION['user']['accountid'];
     $username=$_SESSION['user']['username'];
     $password=$_SESSION['user']['password'];
+    $userimage=$_SESSION['user']['userimage'];
 }
 echo '<head>
     <link rel="stylesheet" href="css/style.css">
@@ -20,7 +21,7 @@ echo '<head>
 echo '<body>';
 echo '<div class="signin">';
 echo '<div class="inputarea">';
-echo '<form action="twitter-signin-output.php" method="post">';
+echo '<form action="twitter-signin-output.php" method="post" enctype="multipart/form-data">';
 echo '<table>';
 echo '<tr><td>アカウントID</td><td>';
 echo '<input type="text" class="form" name="accountid" value="',$accountid,'">';
@@ -30,6 +31,9 @@ echo '<input type="text" class="form" name="username" value="',$username,'">';
 echo '</td></tr>';
 echo '<tr><td>パスワード</td><td>';
 echo '<input type="password" class="form" name="password" value="',$password,'">';
+echo '</td></tr>';
+echo '<tr><td>プロフィール画像</td><td>';
+echo '<input type="file" class="imagefile" name="file">';
 echo '</td></tr>';
 echo '</table>';
 echo '<input type="hidden" name="token" value="',htmlspecialchars($token,ENT_COMPAT,'UTF-8'),'">';
