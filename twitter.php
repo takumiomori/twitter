@@ -71,7 +71,7 @@ echo '<!DOCTYPE html>
                 }
             }
                 if (isset($_REQUEST['sort'])) {
-                    foreach ($pdo->query('select * from post,post_user where user_id=post_user.id order by post.post_id desc') as $row) {
+                    foreach ($pdo->query('select * from post,post_user where user_id=post_user.id') as $row) {
                             echo '<div class="center_tweet"gーグル>
                             <div class="tweet_icon"><img src="images/';
                             echo $row['userimage'];
@@ -116,7 +116,7 @@ echo '<!DOCTYPE html>
                     ';
                     }
                 }else{
-                    foreach ($pdo->query('select * from post,post_user where user_id=post_user.id') as $row) {
+                    foreach ($pdo->query('select * from post,post_user where user_id=post_user.id order by post.post_id desc') as $row) {
                         echo '<div class="center_tweet">
                         <div class="tweet_icon"><img src="images/';
                         echo $row['userimage'];
