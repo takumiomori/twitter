@@ -26,13 +26,7 @@ body{
     border-radius: 25px;
     height: 50px;
 }
-.logout{
-    flex-direction: column;
-    overflow: hidden;
-    margin: 10px 0 10px 0;
-    border-radius: 25px;
-    height: 50px;
-}
+
 .search_topics i,.setting i{
     float: left;
     margin: 10px;
@@ -47,11 +41,21 @@ body{
     border-radius: 0;
     line-height: 50px;
 }
+
 .search{
     font-weight: bold;
 }
 .search_topics:hover ,.setting:hover,.logout:hover{
     background-color: gainsboro;
+}
+.logout{
+    flex-direction: column;
+    overflow: hidden;
+    margin: 10px 0 10px 0;
+    border-radius: 25px;
+    height: 50px;
+    width: 100%;
+    padding-left: 15px;
 }
 
 .center{
@@ -107,6 +111,11 @@ body{
     margin-bottom: 20px;
 
 }
+.tweetbuttun:hover{
+    background-color: #1d9bf0;
+    border-color:#1d9bf0;
+    color: white;
+}
 .sortarea{
     overflow: hidden;
     width:85%;
@@ -122,6 +131,11 @@ body{
     padding: 6px 14px;
     font-size: 12px;
     margin: 0px 30px 10px 0px;
+}
+.sort:hover{
+    background-color: #1d9bf0;
+    border-color:#1d9bf0;
+    color: white;
 }
 
 .tweet_wrap{
@@ -212,6 +226,10 @@ body{
     padding: 3px 5px;
     font-size: 12px;
     margin-bottom: 15px;
+}
+.goodbuttun:hover{
+    background-color: #eb3483;
+    color: white;
 }
 
 .login,.signin{
