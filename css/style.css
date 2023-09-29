@@ -265,6 +265,10 @@ body{
     font-weight: bold;
     margin-top: 18px;
 }
+.submitbtn:hover{
+    background-color: white;
+    color: black;
+}
 
 .inputarea{
     margin: 0px auto 0px auto;
